@@ -114,7 +114,7 @@ func Open(file string) (*Reader, error) {
 }
 
 // Open opens a file for reading.
-func OpenFile(file *File) (*Reader, error) {
+func OpenFile(file *os.File) (*Reader, error) {
 	if file == nil {
 		return nil, errors.New("File not found!")
 	}
