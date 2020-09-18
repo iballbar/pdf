@@ -67,6 +67,7 @@ import (
 	"crypto/cipher"
 	"crypto/md5"
 	"crypto/rc4"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -110,6 +111,18 @@ func Open(file string) (*Reader, error) {
 		return nil, err
 	}
 	return NewReader(f, fi.Size())
+}
+
+// Open opens a file for reading.
+func OpenFile(file *File) (*Reader, error) {
+	if file == nil {
+		return nil, erros.New("File not found!")
+	}
+	fi, err := file.Stat()
+	if err != nil {
+		return nil, err
+	}
+	return NewReader(file, fi.Size())
 }
 
 // NewReader opens a file for reading, using the data in f with the given total size.
